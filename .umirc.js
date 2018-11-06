@@ -1,6 +1,9 @@
 
 
 export default {
+  targets: {
+    ie: 10,
+  },
   plugins: [
     ['umi-plugin-react', {
       antd: true,
@@ -13,5 +16,5 @@ export default {
       },
       hardSource: true,
     }],
-  ],
+  ]
 }

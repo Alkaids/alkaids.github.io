@@ -2,9 +2,11 @@ import styles from './index.less';
 
 
 export default class Index extends React.Component {
+  static animationFrame = null;
+  canvas = React.createRef();
   componentDidMount() {
-    let $container = document.getElementById('container');
-    var canvas = document.getElementById('canvas'),
+    let self = this;
+    var canvas = this.canvas.current,
       ctx = canvas.getContext('2d'),
       w = canvas.width = 1920,
       h = canvas.height = 1080,
@@ -95,14 +97,18 @@ export default class Index extends React.Component {
       for (var i = 1, l = stars.length; i < l; i++) {
         stars[i].draw();
       };
-      window.requestAnimationFrame(animation);
+      self.animationFrame = window.requestAnimationFrame(animation);
     }
     animation();
+  }
+  componentWillUnmount() {
+    this.canvas.current.getContext('2d').clearRect(0, 0, 1920, 1080);
+    window.cancelAnimationFrame(this.animationFrame);
   }
   render() {
     return (
       <div style={{ width: '100vw', height: '100vh' }} className={styles.container} id="container">
-        <canvas id="canvas" />
+        <canvas ref={this.canvas} />
         <h3 className={styles.title}>Alkaids</h3>
         <h2 className={styles.subtitle}>地险悠悠天险长，金陵王气应瑶光</h2>
       </div>
