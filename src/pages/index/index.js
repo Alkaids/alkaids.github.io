@@ -96,7 +96,6 @@ export default class Index extends React.Component {
       };
       window.requestAnimationFrame(animation);
     }
-
     animation();
   }
   render() {
