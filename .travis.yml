@@ -19,7 +19,7 @@ after_script:
 # E: Build LifeCycle
 branches:
 only:
-- index
+- dev
 env:
 global:
 - GH_REF: github.com/Alkaids/Alkaids.github.io.git
