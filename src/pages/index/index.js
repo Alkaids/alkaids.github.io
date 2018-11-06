@@ -6,8 +6,8 @@ export default class Index extends React.Component {
     let $container = document.getElementById('container');
     var canvas = document.getElementById('canvas'),
       ctx = canvas.getContext('2d'),
-      w = canvas.width = $container.clientWidth,
-      h = canvas.height = $container.clientHeight,
+      w = canvas.width = 1920,
+      h = canvas.height = 1080,
 
       hue = 217,
       stars = [],
