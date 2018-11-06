@@ -22,4 +22,4 @@ only:
 - index
 env:
 global:
-- GH_REF: github.com:Alkaids/Alkaids.github.io.git
+- GH_REF: github.com/Alkaids/Alkaids.github.io.git
