@@ -12,7 +12,7 @@ export default class Index extends React.Component {
         stars = [],
         count = 0,
         maxStars = 1400;
-      
+        
       // Thanks @jackrugile for the performance tip! http://codepen.io/jackrugile/pen/BjBGoM
       // Cache gradient
       var canvas2 = document.createElement('canvas'),
@@ -30,7 +30,6 @@ export default class Index extends React.Component {
           ctx2.beginPath();
           ctx2.arc(half, half, half, 0, Math.PI * 2);
           ctx2.fill();
-      
       // End cache
       
       function random(min, max) {
@@ -55,7 +54,7 @@ export default class Index extends React.Component {
         this.orbitX = w / 2;
         this.orbitY = h / 2;
         this.timePassed = random(0, maxStars);
-        this.speed = random(this.orbitRadius) / 100000;
+        this.speed = random(this.orbitRadius) / 300000;
         this.alpha = random(2, 10) / 10;
       
         count++;
@@ -73,8 +72,8 @@ export default class Index extends React.Component {
           this.alpha += 0.05;
         }
       
-        ctx.globalAlpha = this.alpha;
-          ctx.drawImage(canvas2, x - this.radius / 2, y - this.radius / 2, this.radius, this.radius);
+        ctx.globalAlpha = 0.8;
+        ctx.drawImage(canvas2, x - this.radius / 2, y - this.radius / 2, this.radius, this.radius);
         this.timePassed += this.speed;
       }
       
@@ -83,6 +82,9 @@ export default class Index extends React.Component {
       }
       
       function animation() {
+          let img = new Image();
+          img.src = 'timg.jpeg';
+          ctx.drawImage(img, 0 , 0, w, h);
           ctx.globalCompositeOperation = 'source-over';
           ctx.globalAlpha = 0.8;
           ctx.fillStyle = 'hsla(' + hue + ', 64%, 6%, 1)';
@@ -92,7 +94,6 @@ export default class Index extends React.Component {
         for (var i = 1, l = stars.length; i < l; i++) {
           stars[i].draw();
         };  
-        
         window.requestAnimationFrame(animation);
       }
       
@@ -102,7 +103,7 @@ export default class Index extends React.Component {
         return (
             <div style={{width:'100vw', height:'100vh'}} className={styles.container}>
                 <canvas id="canvas"/>
-                <h3 className={styles.title}>瑶光</h3>
+                <h3 className={styles.title}>Alkaids</h3>
             </div>
         )
     }
