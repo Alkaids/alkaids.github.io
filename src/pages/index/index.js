@@ -3,10 +3,11 @@ import styles from './index.less';
 
 export default class Index extends React.Component {
   componentDidMount() {
+    let $container = document.getElementById('container');
     var canvas = document.getElementById('canvas'),
       ctx = canvas.getContext('2d'),
-      w = canvas.width = window.innerWidth,
-      h = canvas.height = window.innerHeight,
+      w = canvas.width = $container.clientWidth,
+      h = canvas.height = $container.clientHeight,
 
       hue = 217,
       stars = [],
@@ -100,9 +101,10 @@ export default class Index extends React.Component {
   }
   render() {
     return (
-      <div style={{ width: '100vw', height: '100vh' }} className={styles.container}>
+      <div style={{ width: '100vw', height: '100vh' }} className={styles.container} id="container">
         <canvas id="canvas" />
         <h3 className={styles.title}>Alkaids</h3>
+        <h2 className={styles.subtitle}>地险悠悠天险长，金陵王气应瑶光</h2>
       </div>
     )
   }
