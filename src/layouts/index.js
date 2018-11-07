@@ -10,7 +10,7 @@ function BasicLayout(props) {
       <Layout>
         <Header>
         </Header>
-        <Content style={{paddingTop, background:'url(timg.jpeg) no-repeat', backgroundSize: '100% 100%', width:'100vw', height: '100vh'}}>
+        <Content style={{paddingTop, background:'#061a32', backgroundSize: '100% 100%', width:'100vw', height: '100vh'}}>
           {props.children}
         </Content>
       </Layout>

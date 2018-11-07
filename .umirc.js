@@ -10,11 +10,8 @@ export default {
       dva: false,
       dynamicImport: true,
       title: 'Alkaids.github.io',
-      dll: true,
-      routes: {
-        exclude: [],
-      },
-      hardSource: true,
+      fastClick: true,
+      library: 'react'
     }],
   ]
 }
