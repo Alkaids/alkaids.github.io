@@ -1,4 +1,4 @@
 export default {
-    host: 'http://localhost',
+    host: 'ws://localhost',
     port: 3000
 }

@@ -30,10 +30,7 @@
     "node": ">=8.0.0"
   },
   "dependencies": {
-    "koa": "^2.6.1",
-    "koa2-cors": "^2.0.6",
     "react-canvas-nest": "^1.0.9",
-    "socket.io": "^2.1.1",
-    "socket.io-client": "^2.1.1"
+    "ws": "^6.1.0"
   }
 }

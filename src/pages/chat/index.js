@@ -1,29 +1,22 @@
 import React, { PureComponent } from 'react';
-import io from 'socket.io-client';
 import config from './config';
 import { Button } from 'antd';
 
 const { host, port } = config
 
 export default class componentName extends PureComponent {
-  static socket = null
+  static socket = null;
   componentDidMount() {
-    this.socket = io(`${host}:${port}`);
-    this.socket.on('loginSuccess', data => {
-      console.log(data);
-    });
-    this.socket.on('loginFail', () => {
-
-    });
-    this.socket.on('amountChange', data => {
-
-    });
-    this.socket.on('receiveMessage', data => {
-
-    });
+    this.socket = new WebSocket(`${host}:${port}`)
+    this.socket.onopen = () => {
+      console.log('连接socket成功！');
+      this.socket.onmessage = e => {
+        console.log(e.data);
+      }
+    }
   }
   handleLogin = () => {
-    this.socket.emit('login', { username: 'jinxin' })
+    this.socket.send('hello?')
   }
   render() {
     return (
