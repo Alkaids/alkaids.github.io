@@ -1,30 +1,46 @@
-import React, { PureComponent } from 'react';
-import config from './config';
-import { Button } from 'antd';
+import React, { Component } from 'react';
+import config from './wsconfig';
+import InpitNickname from './InputNickname';
+import ChatPanl from './ChatPanl';
 
-const { host, port } = config
+const { host, port } = config;
 
-export default class componentName extends PureComponent {
+export default class componentName extends Component {
   static socket = null;
-  componentDidMount() {
-    this.socket = new WebSocket(`${host}:${port}`)
+  state = {
+    nickname: null,
+    messages: []
+  }
+  handleLogin = (value) => {
+    this.socket = new WebSocket(`${host}:${port}`);
+    localStorage.setItem('nickname', value);
+    this.setState({
+      nickname: value ? value : '匿名'
+    })
     this.socket.onopen = () => {
-      console.log('连接socket成功！');
       this.socket.onmessage = e => {
-        console.log(e.data);
+        this.setState({
+          messages: [...this.state.messages, {
+            nickname: this.state.nickname,
+            message: e.data
+          }]
+        })
       }
     }
   }
-  handleLogin = () => {
-    this.socket.send('hello?')
+  handleSend = (value) => {
+    this.socket.send(value);
   }
   render() {
+    const prop = { ...{ handleSend: this.handleSend }, ...this.state }
     return (
-      <div>
-        <div>
-          <Button onClick={this.handleLogin}>登陆</Button>
-        </div>
-      </div>
+      <React.Fragment>
+        {
+          this.state.nickname ?
+            <ChatPanl {...prop} /> :
+            <InpitNickname handleLogin={this.handleLogin} />
+        }
+      </React.Fragment>
     )
   }
 }

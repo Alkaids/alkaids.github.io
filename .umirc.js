@@ -1,6 +1,11 @@
 
 
+
+
 export default {
+  context: {
+    socket: null
+  },
   targets: {
     ie: 10,
   },
