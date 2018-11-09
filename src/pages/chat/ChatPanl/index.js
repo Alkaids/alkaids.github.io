@@ -1,5 +1,5 @@
 import React, { Component } from 'react'
-import { Row, Col, Button, Input, List, Avatar } from 'antd';
+import { Row, Col, Button, Input, List, Avatar, message } from 'antd';
 import styles from './style.less';
 
 const { TextArea } = Input;
@@ -7,29 +7,42 @@ const { TextArea } = Input;
 
 export default class ChatPanl extends Component {
   textArea = React.createRef();
+  chatBox = React.createRef();
   state = {
     value: `大家好， 我叫${this.props.nickname}`
   }
   handleSend = () => {
-    this.props.handleSend({
-      nickname:this.props.nickname,
-      message:this.state.value
-    });
-    this.setState({
-      value: ''
-    })
+    if(this.state.value!==''){
+      this.props.handleSend({
+        nickname:this.props.nickname,
+        message:this.state.value
+      });
+      this.setState({
+        value: ''
+      })
+    }else{
+      message.info('消息不能为空！');
+    }
   }
   hanleChange = e => {
     this.setState({
       value: e.target.value
     })
   }
+  componentDidMount() {
+    document.onkeydown = e=>{
+      e.keyCode === 13 && this.handleSend
+    }
+  }
+  componentDidUpdate() {
+    this.chatBox.current.scrollTop = this.chatBox.current.scrollHeight;
+  }
   render() {
     return (
       <Row>
         <Col span={18} offset={3}>
           <div className={styles.panl}>
-            <div style={{ height: 'calc( 100% - 200px )' }}>
+            <div style={{ height: 'calc( 100% - 200px )'}} className={styles.chatBox} ref={this.chatBox}>
               <List
                 itemLayout="horizontal"
                 dataSource={this.props.messages}
