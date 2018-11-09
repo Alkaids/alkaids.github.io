@@ -15,6 +15,8 @@ wss.on('connection', ws => {
             c.send(data);
         })
     })
+    ws.on('close', () => {
+        clientArr = clientArr.filter(c => c != ws);
+    })
 })
-
 console.log(`server run at port ${PORT} !`);

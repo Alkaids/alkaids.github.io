@@ -20,16 +20,13 @@ export default class componentName extends Component {
     this.socket.onopen = () => {
       this.socket.onmessage = e => {
         this.setState({
-          messages: [...this.state.messages, {
-            nickname: this.state.nickname,
-            message: e.data
-          }]
+          messages: [...this.state.messages, {...JSON.parse(e.data)}]
         })
       }
     }
   }
   handleSend = (value) => {
-    this.socket.send(value);
+    this.socket.send(JSON.stringify(value));
   }
   render() {
     const prop = { ...{ handleSend: this.handleSend }, ...this.state }

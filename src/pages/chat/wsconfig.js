@@ -1,4 +1,4 @@
 module.exports = {
-    host: 'ws://localhost',
+    host: 'ws://104.156.250.122',
     port: 3000
 }

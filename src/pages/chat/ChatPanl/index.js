@@ -11,7 +11,10 @@ export default class ChatPanl extends Component {
     value: `大家好， 我叫${this.props.nickname}`
   }
   handleSend = () => {
-    this.props.handleSend(this.state.value);
+    this.props.handleSend({
+      nickname:this.props.nickname,
+      message:this.state.value
+    });
     this.setState({
       value: ''
     })
