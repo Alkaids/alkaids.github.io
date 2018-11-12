@@ -4,6 +4,10 @@ import styles from './style.less';
 
 const { TextArea } = Input;
 
+const getDescription = (item) => {
+  const {nickname, message} = item; 
+  return <span className={styles.description}>{message}</span>
+}
 
 export default class ChatPanl extends Component {
   textArea = React.createRef();
@@ -13,10 +17,7 @@ export default class ChatPanl extends Component {
   }
   handleSend = () => {
     if (this.state.value !== '') {
-      this.props.handleSend({
-        nickname: this.props.nickname,
-        message: this.state.value
-      });
+      this.props.handleSend(this.state.value);
       this.setState({
         value: ''
       })
@@ -61,8 +62,8 @@ export default class ChatPanl extends Component {
                   <List.Item style={{ padding: '20px', border: 'none' }}>
                     <List.Item.Meta
                       avatar={<Avatar style={{ backgroundColor: '#005aa0', verticalAlign: 'middle' }}>{item.nickname[0]}</Avatar>}
-                      title={<a href="https://ant.design">{item.nickname}</a>}
-                      description={item.message}
+                      title={<a href="https://github.com/Alkaids/Alkaids.github.io">{item.nickname}</a>}
+                      description={getDescription(item)}
                     />
                   </List.Item>
                 )}

@@ -26,7 +26,10 @@ export default class componentName extends Component {
     }
   }
   handleSend = (value) => {
-    this.socket.send(JSON.stringify(value));
+    this.socket.send(JSON.stringify({
+      nickname: this.state.nickname,
+      message: value
+    }));
   }
   render() {
     const prop = { ...{ handleSend: this.handleSend }, ...this.state }
