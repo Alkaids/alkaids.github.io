@@ -12,15 +12,15 @@ export default class ChatPanl extends Component {
     value: `大家好， 我叫${this.props.nickname}`
   }
   handleSend = () => {
-    if(this.state.value!==''){
+    if (this.state.value !== '') {
       this.props.handleSend({
-        nickname:this.props.nickname,
-        message:this.state.value
+        nickname: this.props.nickname,
+        message: this.state.value
       });
       this.setState({
         value: ''
       })
-    }else{
+    } else {
       message.info('消息不能为空！');
     }
   }
@@ -29,10 +29,21 @@ export default class ChatPanl extends Component {
       value: e.target.value
     })
   }
-  componentDidMount() {
-    document.onkeydown = e=>{
-      e.keyCode === 13 && this.handleSend
+  onKeyDown = e => {
+    if(e.keyCode===13&&e.ctrlKey){
+      this.setState({
+        value: this.state.value + '\n'
+      })
+    }else if(e.keyCode === 13) {
+      e.preventDefault();
+      this.handleSend();
     }
+  }
+  componentDidMount() {
+    document.addEventListener('keydown', this.onKeyDown);
+  }
+  componentWillUnmount() {
+    document.removeEventListener('keydown', this.onKeyDown);
   }
   componentDidUpdate() {
     this.chatBox.current.scrollTop = this.chatBox.current.scrollHeight;
@@ -42,12 +53,12 @@ export default class ChatPanl extends Component {
       <Row>
         <Col span={18} offset={3}>
           <div className={styles.panl}>
-            <div style={{ height: 'calc( 100% - 200px )'}} className={styles.chatBox} ref={this.chatBox}>
+            <div style={{ height: 'calc( 100% - 200px )' }} className={styles.chatBox} ref={this.chatBox}>
               <List
                 itemLayout="horizontal"
                 dataSource={this.props.messages}
                 renderItem={item => (
-                  <List.Item style={{padding:'20px', border:'none'}}>
+                  <List.Item style={{ padding: '20px', border: 'none' }}>
                     <List.Item.Meta
                       avatar={<Avatar style={{ backgroundColor: '#005aa0', verticalAlign: 'middle' }}>{item.nickname[0]}</Avatar>}
                       title={<a href="https://ant.design">{item.nickname}</a>}
@@ -58,7 +69,8 @@ export default class ChatPanl extends Component {
               />
             </div>
             <div className={styles.textArea}>
-              <TextArea style={{ resize: 'none', height: '100%' }} onChange={this.hanleChange} value={this.state.value}/>
+              <TextArea style={{ resize: 'none', height: '100%' }} onChange={this.hanleChange} value={this.state.value} />
+              <span className={styles.tips}>按下Ctr+Enter换行</span>
               <Button onClick={this.handleSend}>发送</Button>
             </div>
           </div>
