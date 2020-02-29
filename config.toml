@@ -1,4 +1,4 @@
-baseURL = "https://example.com/"
+baseURL = "http://alkaids.com"
 languageCode = "en-us"
 title = "A Hugo theme for creating Reveal.js presentations"
 disableKinds = ["sitemap", "RSS"]
